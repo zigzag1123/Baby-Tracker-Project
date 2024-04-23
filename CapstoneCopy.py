@@ -1,0 +1,353 @@
+# Import module .configure
+from tkinter import *
+from matplotlib.figure import Figure 
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
+NavigationToolbar2Tk) 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import datetime
+import csv
+
+currentchild = 1
+dates = []
+times = []
+activities = []
+df = pd.read_csv('User1.csv')
+# Create object 
+root = Tk()
+
+sleepwindow = Frame(root)
+loginwindow = Frame(root)
+
+# Adjust size 
+root.geometry("1024x768")
+root.minsize(1024, 768)
+
+# Specify Grid
+gColumns = 8
+gRows = 13
+for i in range(gRows):
+    Grid.rowconfigure(root,i,weight=1)
+    for j in range(gColumns):
+        Grid.columnconfigure(root,j,weight=1)
+
+ 
+# Create Buttons
+button_1 = Label(root,text="Child1")
+
+button_3 = Button(root,text="")
+button_4 = Button(root,text="")
+label_dt = Label(root,text="")
+
+label_1 = Label(root,text="Date")
+label_2 = Label(root,text="Time")
+label_3 = Label(root,text="Activity")
+
+entry_1 = Entry(root)
+entry_2 = Entry(root)
+entry_3 = Entry(root)
+
+table1_00_3 = Label(root,text="Past Sleep Activity")
+table1_10 = Label(root,text="Date")
+table1_11 = Label(root,text="Time")
+table1_12 = Label(root,text="Activity")
+
+#fill last 7 data
+if(len(df) >= 7):
+    last_n_rows = df.tail(7)
+else:
+    last_n_rows = df.tail(len(df))
+for i in range(7):
+    if (i < len(last_n_rows)):
+        temp = last_n_rows.iloc[[i]].values[0]
+        date = datetime.datetime.strptime(temp[0], "%m %d %Y  %H:%M")
+        dates.insert(0,str(date.month)+"/"+str(date.day))
+        times.insert(0,str(date.hour)+":"+str(date.minute))
+        activities.insert(0,temp[1])
+    else:
+        dates.append("")
+        times.append("")
+        activities.append("")
+
+table1_20 = Label(root,text=dates[0])
+table1_21 = Label(root,text=times[0])
+table1_22 = Label(root,text=activities[0])
+table1_30 = Label(root,text=dates[1])
+table1_31 = Label(root,text=times[1])
+table1_32 = Label(root,text=activities[1])
+table1_40 = Label(root,text=dates[2])
+table1_41 = Label(root,text=times[2])
+table1_42 = Label(root,text=activities[2])
+table1_50 = Label(root,text=dates[3])
+table1_51 = Label(root,text=times[3])
+table1_52 = Label(root,text=activities[3])
+table1_60 = Label(root,text=dates[4])
+table1_61 = Label(root,text=times[4])
+table1_62 = Label(root,text=activities[4])
+table1_70 = Label(root,text=dates[5])
+table1_71 = Label(root,text=times[5])
+table1_72 = Label(root,text=activities[5])
+table1_80 = Label(root,text=dates[6])
+table1_81 = Label(root,text=times[6])
+table1_82 = Label(root,text=activities[6])
+
+table2_00 = Label(root,text="Daily Time Slept")
+table2_01 = Label(root,text="Average Time Slept per Week")
+table2_02 = Label(root,text="Average Time Slept per Month")
+table2_10 = Label(root,text="1")
+table2_11 = Label(root,text="1")
+table2_12 = Label(root,text="1")
+
+fig = Figure(figsize=(4, 2.25), dpi=100)
+
+# adding the subplot 
+graph_1 = fig.add_subplot(111) 
+
+# plotting the graph 
+graph_1.hist(df) 
+
+canvas = FigureCanvasTkAgg(fig, master=root)
+canvas.get_tk_widget().grid(row=5,column=1,columnspan=3,rowspan=7,padx=10,pady=10,sticky="NEWS")
+# here: plot suff to your fig
+canvas.draw()
+
+
+def UpdateGlobals():
+    global dates 
+    dates = []
+    global times 
+    times = []
+    global activities 
+    activities = []
+    global df
+
+    global button_2
+    global currentchilds
+
+    if (currentchild == 2):
+        button_1.config(text="Child 2")
+    elif (currentchild == 3):
+        button_1.config(text="Child 3")
+    elif (currentchild == 4):
+        button_1.config(text="Child 4")
+    elif (currentchild == 1):
+        button_1.config(text="Child 1")
+
+    filename = 'User'+str(currentchild)+'.csv' 
+    df = pd.read_csv(filename)
+    if(len(df) >= 7):
+        last_n_rows = df.tail(7)
+    else:
+        last_n_rows = df.tail(len(df))
+    for i in range(7):
+        if (i < len(last_n_rows)):
+            temp = last_n_rows.iloc[[i]].values[0]
+            date = datetime.datetime.strptime(temp[0], "%m %d %Y  %H:%M")
+            dates.insert(0,str(date.month)+"/"+str(date.day))
+            times.insert(0,str(date.hour)+":"+str(date.minute))
+            activities.insert(0,temp[1])
+        else:
+            dates.append("")
+            times.append("")
+            activities.append("")
+
+    global table1_20
+    global table1_21
+    global table1_22
+    global table1_30
+    global table1_31
+    global table1_32
+    global table1_40
+    global table1_41
+    global table1_42
+    global table1_50
+    global table1_51
+    global table1_52
+    global table1_60
+    global table1_61
+    global table1_62
+    global table1_70
+    global table1_71
+    global table1_72
+    global table1_80
+    global table1_81
+    global table1_82
+
+    table1_20.config(text=dates[0])
+    table1_21.config(text=times[0])
+    table1_22.config(text=activities[0])
+    table1_30.config(text=dates[1])
+    table1_31.config(text=times[1])
+    table1_32.config(text=activities[1])
+    table1_40.config(text=dates[2])
+    table1_41.config(text=times[2])
+    table1_42.config(text=activities[2])
+    table1_50.config(text=dates[3])
+    table1_51.config(text=times[3])
+    table1_52.config(text=activities[3])
+    table1_60.config(text=dates[4])
+    table1_61.config(text=times[4])
+    table1_62.config(text=activities[4])
+    table1_70.config(text=dates[5])
+    table1_71.config(text=times[5])
+    table1_72.config(text=activities[5])
+    table1_80.config(text=dates[6])
+    table1_81.config(text=times[6])
+    table1_82.config(text=activities[6])
+
+def SleepActivityBtn():
+   # list of column names
+    if (str(entry_1.get()) == ""):
+        return
+    if (str(entry_2.get()) == ""):
+        return
+    if (str(entry_3.get()) != "Sleep"):
+        if (str(entry_3.get()) != "Awake"):
+            return
+
+    date = str(entry_1.get())
+
+    tempdate = ""
+    if (len(date) == 3):
+        tempdate = tempdate + "0"
+        tempdate = tempdate + date[0]
+        tempdate = tempdate + " 0"
+        tempdate = tempdate + date[2]
+    elif (len(date) == 4):
+        if (date[1] == '/'):
+            tempdate = tempdate + "0"
+            tempdate = tempdate + date[0]
+            tempdate = tempdate + " "
+            tempdate = tempdate + date[2]
+            tempdate = tempdate + date[3]
+        if (date[2] == '/'):
+            tempdate = tempdate + date[0]
+            tempdate = tempdate + date[1]
+            tempdate = tempdate + " 0"
+            tempdate = tempdate + date[3]
+    elif (len(date) == 5):
+        tempdate = tempdate + date[0]
+        tempdate = tempdate + date[1]
+        tempdate = tempdate + " "
+        tempdate = tempdate + date[3]
+        tempdate = tempdate + date[4]
+    
+    time = str(entry_2.get())
+    temptime = ""
+    if (len(time) == 3):
+        temptime = temptime + "0"
+        temptime = temptime + time[0]
+        temptime = temptime + ":0"
+        temptime = temptime + time[2]
+    elif (len(time) == 4):
+        if (time[1] == ':'):
+            temptime = temptime + "0"
+            temptime = temptime + time[0]
+            temptime = temptime + ":"
+            temptime = temptime + time[2]
+            temptime = temptime + time[3]
+        if (time[2] == ':'):
+            temptime = temptime + time[0]
+            temptime = temptime + time[1]
+            temptime = temptime + ":0"
+            temptime = temptime + time[3]
+    elif (len(time) == 5):
+        temptime = temptime + time[0]
+        temptime = temptime + time[1]
+        temptime = temptime + ":"
+        temptime = temptime + time[3]
+        temptime = temptime + time[4]
+
+    tempdate = tempdate + " 2024  " + temptime
+
+    line_to_append = [[tempdate,str(entry_3.get())]]
+    filename = 'User'+str(currentchild)+'.csv'
+    file = open(filename,'a', newline='')
+    writer = csv.writer(file)
+
+    writer.writerows(line_to_append)
+
+    file.close()
+    
+    entry_1.delete(0, END)
+    entry_2.delete(0, END)
+    entry_3.delete(0, END)
+
+    UpdateGlobals()
+    
+
+button_5 = Button(root,text="Add Sleep Activity",command=SleepActivityBtn)
+
+def changechild():
+    global currentchild
+    currentchildtemp = currentchild
+    if (currentchildtemp == 1):
+        currentchild = 2
+        UpdateGlobals()
+    elif (currentchildtemp== 2):
+        currentchild = 3
+        UpdateGlobals()
+    elif (currentchildtemp == 3):
+        currentchild = 4
+        UpdateGlobals()
+    elif (currentchildtemp == 4):
+        currentchild = 1
+        UpdateGlobals()
+
+# Create Buttons
+button_2 = Button(root,text="Change Child",command=changechild)
+
+# Set grid
+button_1.grid(row=0,column=0,padx=10,pady=10,sticky="NEWS")
+button_2.grid(row=0,column=1,padx=10,pady=10,sticky="NEWS")
+button_3.grid(row=0,column=2,padx=10,pady=10,sticky="NEWS")
+button_4.grid(row=0,column=3,padx=10,pady=10,sticky="NEWS")
+label_dt.grid(row=0,column=5,columnspan=3,padx=10,pady=10,sticky="NEWS")
+
+label_1.grid(row=2,column=1,padx=10,pady=10,sticky="NEWS")
+label_2.grid(row=2,column=2,padx=10,pady=10,sticky="NEWS")
+label_3.grid(row=2,column=3,padx=10,pady=10,sticky="NEWS")
+
+entry_1.grid(row=3,column=1,padx=10,pady=10,sticky="NEWS")
+entry_2.grid(row=3,column=2,padx=10,pady=10,sticky="NEWS")
+entry_3.grid(row=3,column=3,padx=10,pady=10,sticky="NEWS")
+
+button_5.grid(row=4,column=1,columnspan=3,padx=10,pady=10,sticky="NEWS")
+
+table1_00_3.grid(row=1,column=5,columnspan=3,padx=10,pady=10,sticky="NEWS")
+table1_10.grid(row=2,column=5,padx=10,pady=10,sticky="NEWS")
+table1_11.grid(row=2,column=6,padx=10,pady=10,sticky="NEWS")
+table1_12.grid(row=2,column=7,padx=10,pady=10,sticky="NEWS")
+
+table1_20.grid(row=3,column=5,padx=10,pady=10,sticky="NEWS")
+table1_21.grid(row=3,column=6,padx=10,pady=10,sticky="NEWS")
+table1_22.grid(row=3,column=7,padx=10,pady=10,sticky="NEWS")
+table1_30.grid(row=4,column=5,padx=10,pady=10,sticky="NEWS")
+table1_31.grid(row=4,column=6,padx=10,pady=10,sticky="NEWS")
+table1_32.grid(row=4,column=7,padx=10,pady=10,sticky="NEWS")
+table1_40.grid(row=5,column=5,padx=10,pady=10,sticky="NEWS")
+table1_41.grid(row=5,column=6,padx=10,pady=10,sticky="NEWS")
+table1_42.grid(row=5,column=7,padx=10,pady=10,sticky="NEWS")
+table1_50.grid(row=6,column=5,padx=10,pady=10,sticky="NEWS")
+table1_51.grid(row=6,column=6,padx=10,pady=10,sticky="NEWS")
+table1_52.grid(row=6,column=7,padx=10,pady=10,sticky="NEWS")
+table1_60.grid(row=7,column=5,padx=10,pady=10,sticky="NEWS")
+table1_61.grid(row=7,column=6,padx=10,pady=10,sticky="NEWS")
+table1_62.grid(row=7,column=7,padx=10,pady=10,sticky="NEWS")
+table1_70.grid(row=8,column=5,padx=10,pady=10,sticky="NEWS")
+table1_71.grid(row=8,column=6,padx=10,pady=10,sticky="NEWS")
+table1_72.grid(row=8,column=7,padx=10,pady=10,sticky="NEWS")
+table1_80.grid(row=9,column=5,padx=10,pady=10,sticky="NEWS")
+table1_81.grid(row=9,column=6,padx=10,pady=10,sticky="NEWS")
+table1_82.grid(row=9,column=7,padx=10,pady=10,sticky="NEWS")
+
+table2_00.grid(row=11,column=5,padx=10,pady=10,sticky="NEWS")
+table2_01.grid(row=11,column=6,padx=10,pady=10,sticky="NEWS")
+table2_02.grid(row=11,column=7,padx=10,pady=10,sticky="NEWS")
+table2_10.grid(row=12,column=5,padx=10,pady=10,sticky="NEWS")
+table2_11.grid(row=12,column=6,padx=10,pady=10,sticky="NEWS")
+table2_12.grid(row=12,column=7,padx=10,pady=10,sticky="NEWS")
+
+# Execute tkinter
+root.mainloop()
