@@ -8,4 +8,4 @@ pip install matplotlib
 
 After this you can run the main code with
 
-python Capstonecopy.py
+python CapstoneCopy.py
