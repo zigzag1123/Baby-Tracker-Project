@@ -32,11 +32,37 @@ for i in range(gRows):
     for j in range(gColumns):
         Grid.columnconfigure(root,j,weight=1)
 
+
+color = False
+
+def invertcolor():
+    global color
+    if color:
+        root.configure(bg="white",)
+        for item in root.grid_slaves():
+            if isinstance(item, Entry):
+                item.configure(bg="lightgray",fg="black")
+            elif isinstance(item, Label):
+                item.configure(bg="lightgray",fg="black")
+            elif isinstance(item, Button):
+                item.configure(bg="lightgray",fg="black")
+        color = False
+    else:
+        root.configure(bg="black")
+        for item in root.grid_slaves():
+            if isinstance(item, Entry):
+                item.configure(bg="black",fg="white")
+            elif isinstance(item, Label):
+                item.configure(bg="black",fg="white")
+            elif isinstance(item, Button):
+                item.configure(bg="black",fg="white")
+                        
+        color = True
  
 # Create Buttons
 button_1 = Label(root,text="Child1")
 
-button_3 = Button(root,text="")
+button_3 = Button(root,text="Invert Color",command=invertcolor)
 button_4 = Button(root,text="")
 label_dt = Label(root,text="")
 
@@ -348,6 +374,15 @@ table2_02.grid(row=11,column=7,padx=10,pady=10,sticky="NEWS")
 table2_10.grid(row=12,column=5,padx=10,pady=10,sticky="NEWS")
 table2_11.grid(row=12,column=6,padx=10,pady=10,sticky="NEWS")
 table2_12.grid(row=12,column=7,padx=10,pady=10,sticky="NEWS")
+
+root.configure(bg="white",)
+for item in root.grid_slaves():
+    if isinstance(item, Entry):
+        item.configure(bg="lightgray",fg="black")
+    elif isinstance(item, Label):
+        item.configure(bg="lightgray",fg="black")
+    elif isinstance(item, Button):
+        item.configure(bg="lightgray",fg="black")
 
 # Execute tkinter
 root.mainloop()
