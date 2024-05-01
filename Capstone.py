@@ -1,4 +1,3 @@
-# Import module .configure
 from tkinter import *
 from matplotlib.figure import Figure 
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
@@ -14,13 +13,16 @@ from PIL import ImageTk,Image
 # Create object 
 root = Tk()
 
+# Create login and sleep frame - Not implemented
 sleepwindow = Frame(root)
 loginwindow = Frame(root)
 
-# Adjust size 
+# Hard coded USER/PASS
+# Will be hooked up to SQL for verification in sprint 3
 username = "jhs0137"
 password = "Pokemon12"
 
+# Create Login Window and all objects
 main = Toplevel()
 main.title("Login")
 name_label = Label(main,text="Baby Tracker").pack()
@@ -32,15 +34,21 @@ loginentry.pack()
 passentry = Entry(main,show="*")
 passentry.pack()
 
-
+# Opens Sleep Tracking if USER/PASS Match
 def opentop():
         global username
         global password
         global loginentry
         global passentry
+
+        # Check USER and PASS
+
         if (username == str(loginentry.get())):
             if (password == str(passentry.get())):
+                # Destroy Login Screen
                 main.destroy()
+                
+                # Initialize Sleep Activity Screen
                 top = Toplevel()
                 top.title("Sleep Activity")
                 top.geometry("1024x768")
@@ -48,10 +56,13 @@ def opentop():
                 # Specify Grid
                 gColumns = 8
                 gRows = 13
+
+                # Setup grid
                 for i in range(gRows):
                     Grid.rowconfigure(top,i,weight=1)
                     for j in range(gColumns):
                         Grid.columnconfigure(top,j,weight=1)
+
                 global currentchild
                 currentchild = 1
                 global dates
@@ -65,8 +76,11 @@ def opentop():
                 global color
                 color = False
 
+                # Invert color function for button
                 def invertcolor():
                     global color
+                    # Check color and switch between dark and light mode
+                    # Light Mode
                     if color:
                         top.configure(bg="white")
                         for item in top.grid_slaves():
@@ -77,6 +91,7 @@ def opentop():
                             elif isinstance(item, Button):
                                 item.configure(bg="lightgray",fg="black")
                         color = False
+                    # Dark Mode
                     else:
                         top.configure(bg="black")
                         for item in top.grid_slaves():
@@ -89,7 +104,7 @@ def opentop():
                                         
                         color = True
                 
-                # Create Buttons
+                # Create Buttons and Entry Locations
                 button_1 = Label(top,text="Child1")
 
                 button_3 = Button(top,text="Invert Color",command=invertcolor)
@@ -109,11 +124,13 @@ def opentop():
                 table1_11 = Label(top,text="Time")
                 table1_12 = Label(top,text="Activity")
 
-                #fill last 7 data
+                # Get last 7 or all data whichever is less
                 if(len(df) >= 7):
                     last_n_rows = df.tail(7)
                 else:
                     last_n_rows = df.tail(len(df))
+
+                # Process data from STR to datetime and fill in the arrays
                 for i in range(7):
                     if (i < len(last_n_rows)):
                         temp = last_n_rows.iloc[[i]].values[0]
@@ -148,6 +165,7 @@ def opentop():
                 global table1_81
                 global table1_82
 
+                # Put all data from arrays into the table in a viewable manner
                 table1_20 = Label(top,text=dates[0])
                 table1_21 = Label(top,text=times[0])
                 table1_22 = Label(top,text=activities[0])
@@ -197,15 +215,18 @@ def opentop():
                 start_date = end_date - timedelta(days=6)
                 sleep_df = sleep_df[sleep_df['Date'].isin([(start_date + timedelta(days=i)).strftime('%m-%d') for i in range(7)])]
 
+                # Setup figure
                 f = Figure(figsize=(4, 2.25), dpi=100)
                 ax = f.add_subplot(111)
 
+                # Configure bar graph
                 ax.bar(sleep_df['Date'], sleep_df['SleepHours'], color='skyblue')
                 ax.set_title('Sleep Duration for Last 7 Days')
                 ax.set_xlabel('Date')
                 ax.set_ylabel('Hours of Sleep')
                 ax.set_xticklabels(sleep_df['Date'], rotation=45)
 
+                # Post new figure to the application screen
                 canvas = FigureCanvasTkAgg(f, master=top)
                 canvas.draw()
                 canvas.get_tk_widget().grid(row=5,column=1,columnspan=3,rowspan=7,padx=10,pady=10,sticky="NEWS")
@@ -214,9 +235,10 @@ def opentop():
                 global table2_11
                 global table2_12
 
-                table2_00 = Label(top,text="Daily Time Slept")
-                table2_01 = Label(top,text="Average Time Slept per Week")
-                table2_02 = Label(top,text="Average Time Slept per Month")
+                table2_00 = Label(top,text="Time Slept Today")
+                table2_01 = Label(top,text="Time Slept this Week")
+                table2_02 = Label(top,text="Average Time Slept per Day")
+                # If sleep data input data into table
                 if (len(sleep_df) > 0):
                     table2_10 = Label(top,text=round(sleep_df.iloc[-1]['SleepHours'],2))
                     table2_11 = Label(top,text=round(sleep_df['SleepHours'].sum(),2))
@@ -225,19 +247,6 @@ def opentop():
                     table2_10 = Label(top,text='N/A')
                     table2_11 = Label(top,text='N/A')
                     table2_12 = Label(top,text='N/A')
-
-                # adding the subplot 
-                #graph_1 = fig.add_subplot(111) 
-
-                # plotting the graph 
-                #sleep = [9, 12, 8, 6, 4, 5,10]
-                #index = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-                #graph_1.bar({'Sleep': sleep}, index=index)
-
-                #canvas = FigureCanvasTkAgg(fig, master=top)
-                #canvas.get_tk_widget().grid(row=5,column=1,columnspan=3,rowspan=7,padx=10,pady=10,sticky="NEWS")
-                # here: plot suff to your fig
-                #canvas.draw()
 
 
                 def UpdateGlobals():
@@ -249,9 +258,9 @@ def opentop():
                     activities = []
                     global df
 
-                    global button_2
-                    global currentchilds
+                    global currentchild
 
+                    # Check currentchild and update button text
                     if (currentchild == 2):
                         button_1.config(text="Child 2")
                     elif (currentchild == 3):
@@ -261,12 +270,15 @@ def opentop():
                     elif (currentchild == 1):
                         button_1.config(text="Child 1")
 
+                    # Based off of currentchild load csv corresponding to the child
                     filename = 'User'+str(currentchild)+'.csv' 
                     df = pd.read_csv(filename)
+                    # Load last 7 or all of data, whichever is less
                     if(len(df) >= 7):
                         last_n_rows = df.tail(7)
                     else:
                         last_n_rows = df.tail(len(df))
+                    # Populate last data entries into the three arrays
                     for i in range(7):
                         if (i < len(last_n_rows)):
                             temp = last_n_rows.iloc[[i]].values[0]
@@ -301,6 +313,7 @@ def opentop():
                     global table1_81
                     global table1_82
 
+                    # Put data into table in a viewable manner
                     table1_20.config(text=dates[0])
                     table1_21.config(text=times[0])
                     table1_22.config(text=activities[0])
@@ -350,17 +363,24 @@ def opentop():
                     start_date = end_date - timedelta(days=6)
                     sleep_df = sleep_df[sleep_df['Date'].isin([(start_date + timedelta(days=i)).strftime('%m-%d') for i in range(7)])]
 
+                    # Create graph figure
+
                     f = Figure(figsize=(4, 3), dpi=100)
                     ax = f.add_subplot(111)
 
+                    # Setup bar graph
+
                     ax.bar(sleep_df['Date'], sleep_df['SleepHours'], color='skyblue')
                     ax.set_title('Sleep Duration for Last 7 Days')
-                    ax.set_xlabel('Date')
                     ax.set_ylabel('Hours of Sleep')
                     ax.set_xticklabels(sleep_df['Date'], rotation=45)
 
+                    # Delete previous graph if it exists
+
                     if hasattr(top, 'canvas'):
                         top.canvas.get_tk_widget().destroy()
+
+                    # Post new figure to the aplication
 
                     canvas = FigureCanvasTkAgg(f, master=top)
                     canvas.draw()
@@ -369,6 +389,7 @@ def opentop():
                     global table2_10
                     global table2_11
                     global table2_12
+                    # If sleep data input data into table 
                     if (len(sleep_df) > 0):
                         table2_10.config(text=round(sleep_df.iloc[-1]['SleepHours'],2))
                         table2_11.config(text=round(sleep_df['SleepHours'].sum(),2))
@@ -379,7 +400,7 @@ def opentop():
                         table2_12.config(text='N/A')
 
                 def SleepActivityBtn():
-                # list of column names
+                # Data check. Break if data not correct
                     if (str(entry_1.get()) == ""):
                         return
                     if (str(entry_2.get()) == ""):
@@ -388,8 +409,11 @@ def opentop():
                         if (str(entry_3.get()) != "Awake"):
                             return
 
+
+                    # Get date data
                     date = str(entry_1.get())
 
+                    # Take data and format it where the program can understand it. Temporary and will be irrelavant in future updates.
                     tempdate = ""
                     if (len(date) == 3):
                         tempdate = tempdate + "0"
@@ -415,7 +439,10 @@ def opentop():
                         tempdate = tempdate + date[3]
                         tempdate = tempdate + date[4]
                     
+                    # Get time data
                     time = str(entry_2.get())
+
+                    # Take time and format it where the program can understand it. Temporary and will be irrelavant in future updates.
                     temptime = ""
                     if (len(time) == 3):
                         temptime = temptime + "0"
@@ -441,21 +468,27 @@ def opentop():
                         temptime = temptime + time[3]
                         temptime = temptime + time[4]
 
+                    # Concatenate data for storage in the csv
                     tempdate = tempdate + " 2024  " + temptime
 
+                    # Open csv corresponding to the current child
                     line_to_append = [[tempdate,str(entry_3.get())]]
                     filename = 'User'+str(currentchild)+'.csv'
                     file = open(filename,'a', newline='')
                     writer = csv.writer(file)
 
+                    # Write new data line to csv
                     writer.writerows(line_to_append)
 
+                    # Close csv
                     file.close()
                     
+                    # Clear data entry spots
                     entry_1.delete(0, END)
                     entry_2.delete(0, END)
                     entry_3.delete(0, END)
 
+                    # Call to update tables and graph
                     UpdateGlobals()
                     
 
@@ -463,24 +496,23 @@ def opentop():
 
                 def changechild():
                     global currentchild
-                    currentchildtemp = currentchild
-                    if (currentchildtemp == 1):
+                    # Check current child and update to next child
+                    if (currentchild == 1):
                         currentchild = 2
-                        UpdateGlobals()
-                    elif (currentchildtemp== 2):
+                    elif (currentchild== 2):
                         currentchild = 3
-                        UpdateGlobals()
-                    elif (currentchildtemp == 3):
+                    elif (currentchild == 3):
                         currentchild = 4
-                        UpdateGlobals()
-                    elif (currentchildtemp == 4):
+                    elif (currentchild == 4):
                         currentchild = 1
-                        UpdateGlobals()
+                    
+                    # Call to update tables and graph
+                    UpdateGlobals()
 
-                # Create Buttons
+                # Create Change child button
                 button_2 = Button(top,text="Change Child",command=changechild)
 
-                # Set grid
+                # Assign all objects to a grid
                 button_1.grid(row=0,column=0,padx=10,pady=10,sticky="NEWS")
                 button_2.grid(row=0,column=1,padx=10,pady=10,sticky="NEWS")
                 button_3.grid(row=0,column=2,padx=10,pady=10,sticky="NEWS")
@@ -531,6 +563,7 @@ def opentop():
                 table2_11.grid(row=12,column=6,padx=10,pady=10,sticky="NEWS")
                 table2_12.grid(row=12,column=7,padx=10,pady=10,sticky="NEWS")
 
+                # Set all items to the light mode config
                 top.configure(bg="white")
                 for item in top.grid_slaves():
                     if isinstance(item, Entry):
@@ -541,11 +574,13 @@ def opentop():
                         item.configure(bg="lightgray",fg="black")
 
 
+# Set login button
 btn = Button(main,text="Login",command=opentop).pack()
 
 
 main.configure(bg="white")
 
+# Set all items to the light mode config
 for item in main.pack_slaves():
         if isinstance(item, Entry):
             item.configure(bg="white")
