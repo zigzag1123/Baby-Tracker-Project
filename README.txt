@@ -16,7 +16,7 @@ PASS: Pokemon12
 
 To add more data please input the data in the formats listed below.
 Date - ##/## ; ##/# ; #/## ; #/#
-Time - ##:## ; ##:# ; #:## ; #:#
+Time - ##:## ; ##:# ; #:## ; #:# - Needs to be in 24hr time format, for example instead of 6:23pm input 18:23
 Activity - Sleep ; Awake
 
 Currently our program only checks for empty cells and if the activity is "Sleep" or "Awake".
