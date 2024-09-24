@@ -10,7 +10,7 @@ import csv
 from PIL import ImageTk,Image
 
 
-# Create object 
+# Create object for tkinter
 root = Tk()
 
 # Create login and sleep frame - Not implemented
