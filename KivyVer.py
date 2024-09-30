@@ -23,6 +23,8 @@ import csv
 ## Here for providing colour to the background  
 from kivy.core.window import Window 
 
+import mysql.connector
+
 loadingstr = ("""
 <LoginWindow>:
     name: "login"
@@ -401,7 +403,10 @@ loadingstr = ("""
                 app.root.current = "login"
                 root.manager.transition.direction = "left"    
 """)
-
+global parentID
+parentID = 0
+global childrenID
+childrenID = []
 global currentchild
 currentchild = 1
 global dates
@@ -428,6 +433,14 @@ class SettingsWindow(Screen):
 class MyMainApp(MDApp):
     main_text = "None"
 
+    mydb = mysql.connector.connect(
+            host = "localhost",
+            user = "root",
+            passwd = "Capstone1!",
+            database = "baby_tracker"
+        )
+    c = mydb.cursor()
+
     # initialing the Application
     def __init__(self, **kwargs):
         super(MyMainApp, self).__init__(**kwargs)
@@ -438,10 +451,16 @@ class MyMainApp(MDApp):
         password = self.root.get_screen('login').ids.passw.text
         self.root.get_screen('login').ids.passw.text = ""
         self.root.transition.direction = "left"
-        if password == "Pokemon12" and username == "jhs0137":
+
+        self.c.execute("select * from tbl_parents where fld_username = %s", (username,))          
+        
+        result = self.c.fetchall()
+        
+        if password == result[0][2]:
             self.root.current = "main"
         else:
             self.root.current = "login"
+        
 
     def build(self):
 
@@ -607,6 +626,8 @@ class MyMainApp(MDApp):
         # Based off of currentchild load csv corresponding to the child
         filename = 'User'+str(currentchild)+'.csv' 
         df = pd.read_csv(filename)
+
+        df.sort_values(by=['Date'])
         # Load last 7 or all of data, whichever is less
         if(len(df) >= 7):
             last_n_rows = df.tail(7)
