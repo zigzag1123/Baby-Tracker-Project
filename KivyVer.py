@@ -64,6 +64,67 @@ loadingstr = ("""
             size_hint: .1, .1
             on_release:
                 app.loginProt()
+              
+        Button:
+            text: "Create User"
+            pos_hint: {'x': .2, 'y': .9}
+            size_hint: .1, .1
+            on_release:
+                app.root.current = "creation"
+                root.manager.transition.direction = "left"
+              
+<CreationWindow>:
+    name: "creation"
+
+    FloatLayout:
+
+        Label:
+            text: "Create User"
+            pos_hint: {'x': .45, 'y': .8}
+            color: 255,255,255
+            size_hint: .1, .1
+
+        Label:
+            text: "Username:"
+            pos_hint: {'x': .45, 'y': .7}
+            color: 255,255,255
+            size_hint: .1, .1
+
+        TextInput:
+            id: userw
+            multiline: False
+            write_tab: False
+            pos_hint: {'x': .45, 'y': .65}
+            size_hint: .1, .05
+              
+        Label:
+            text: "Password:"
+            pos_hint: {'x': .45, 'y': .5}
+            color: 255,255,255
+            size_hint: .1, .1
+
+        TextInput:
+            id: passw
+            password: True
+            multiline: False
+            write_tab: False
+            pos_hint: {'x': .45, 'y': .45}
+            size_hint: .1, .05
+
+        Button:
+            text: "Submit"
+            pos_hint: {'x': .45, 'y': .3}
+            size_hint: .1, .1
+            on_release:
+                app.createUser()
+              
+        Button:
+            text: "Login"
+            pos_hint: {'x': .2, 'y': .9}
+            size_hint: .1, .1
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "left"
 
 <MainWindow>:
     name: "main"
@@ -389,6 +450,15 @@ loadingstr = ("""
             size_hint: .1, .1
             on_release:
                 app.changeChild()
+            
+        Button:
+            text: "Sleep"
+            pos_hint: {'x': .2, 'y': .9}
+            size_hint: .1, .1
+            on_release:
+                app.updateGlobals()
+                app.root.current = "sleep"
+                root.manager.transition.direction = "left"
 
         Button:
             text: "Settings"
@@ -400,15 +470,16 @@ loadingstr = ("""
             pos_hint: {'x': .7, 'y': .1}
             size_hint: .2, .1
             on_release:
-                app.root.current = "login"
-                root.manager.transition.direction = "left"    
+                app.logoutProt()   
 """)
 global parentID
-parentID = 0
+parentID = ""
 global childrenID
 childrenID = []
+global childrenNames
+childrenNames = []
 global currentchild
-currentchild = 1
+currentchild = 0
 global dates
 dates = []
 global times
@@ -416,9 +487,12 @@ times = []
 global activities
 activities = []
 global df
-df = pd.read_csv('User1.csv')
+df = pd.DataFrame()
 
 class LoginWindow(Screen):
+    pass
+
+class CreationWindow(Screen):
     pass
 
 class MainWindow(Screen):
@@ -434,7 +508,7 @@ class MyMainApp(MDApp):
     main_text = "None"
 
     mydb = mysql.connector.connect(
-            host = "localhost",
+            host = "97.99.192.150",
             user = "root",
             passwd = "Capstone1!",
             database = "baby_tracker"
@@ -447,47 +521,101 @@ class MyMainApp(MDApp):
         self.a = Builder.load_string(loadingstr)
     
     def loginProt(self):
+        global parentID
+        global df
         username  = self.root.get_screen('login').ids.userw.text
         password = self.root.get_screen('login').ids.passw.text
         self.root.get_screen('login').ids.passw.text = ""
         self.root.transition.direction = "left"
 
-        self.c.execute("select * from tbl_parents where fld_username = %s", (username,))          
+        self.c.execute("select * from tbl_parents where fld_p_username_pk = %s", (username,))          
         
         result = self.c.fetchall()
         
-        if password == result[0][2]:
-            self.root.current = "main"
+        if result == []:
+            # Placeholder for if username not found
+            print()
         else:
+            if password == result[0][1]:
+                self.root.get_screen('login').ids.userw.text = ""
+                parentID = username
+                self.c.execute("select * from tbl_child where fld_c_p_username_fk = %s", (username,))
+                result = self.c.fetchall()
+                print(result)
+                for i in range(len(result)):
+                    childrenID.insert(i,result[i][0])
+
+                for i in range(len(result)):
+                    childrenNames.insert(i,str(result[i][2]+", "+result[i][1]))
+
+                print(childrenID)
+                print(childrenNames)
+
+                self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s", (childrenID[currentchild],))
+                result = self.c.fetchall()
+
+                print(result)
+
+                df = pd.DataFrame(result, columns=[i[0] for i in self.c.description])
+                print(df)
+                df = df.rename(columns={'fld_event_time': 'Date', 'fld_event_type': 'Activity'})
+                print(df)
+                self.root.get_screen('main').ids.childtext.text = childrenNames[currentchild]
+                self.root.get_screen('sleep').ids.childtext.text = childrenNames[currentchild]
+                self.root.get_screen('settings').ids.childtext.text = childrenNames[currentchild]
+                self.root.current = "main"
+            else:
+                self.root.current = "login"
+
+    def createUser(self):
+        global parentID
+        global df
+        username  = self.root.get_screen('creation').ids.userw.text
+        password = self.root.get_screen('creation').ids.passw.text
+        self.root.get_screen('creation').ids.passw.text = ""
+        self.root.transition.direction = "left"
+
+        self.c.execute("select * from tbl_parents where fld_p_username_pk = %s", (username,))          
+        
+        result = self.c.fetchall()
+        
+        if result == []:
+            self.c.execute("INSERT INTO `baby_tracker`.`tbl_parents` (`fld_p_username_pk`, `fld_p_password`) VALUES (%s, %s)",(username, password,))
+            self.mydb.commit()
             self.root.current = "login"
+        else:
+            #Error username exists
+            self.root.get_screen('creation').ids.userw.text = ""
+
+    def logoutProt(self):
+        global parentID
+        parentID = ""
+        global childrenID
+        childrenID = []
+        global currentchild
+        currentchild = 1
+        global dates
+        dates = []
+        global times
+        times = []
+        global activities
+        activities = []
+        global df
+        df = pd.DataFrame()
+        self.root.transition.direction = "left"
+        self.root.current = "login"
         
 
     def build(self):
 
         sm = ScreenManager()
         sm.add_widget(LoginWindow(name='login'))
+        sm.add_widget(CreationWindow(name='creation'))
         sm.add_widget(MainWindow(name='main'))
         sm.add_widget(SleepWindow(name='sleep'))
         sm.add_widget(SettingsWindow(name='settings'))
 
         return sm
-    
-    '''def updateGlobals(self):
-        X=[ 1, 2, 3, 4, 5]
-        Y= [5, 14, 7, 20, 11]  #your dataset
-       
-        plt.plot(X,Y)  #craete yourdataset graph
-        plt.title("title here")
-        plt.xlabel("x-axis label here)")
-        plt.ylabel("y-axis label here")
-       
-        buf=io.BytesIO()
-        plt.savefig(buf)  #save your dataset to IoByte
-       
-        buf.seek(0) #seek your graph
-        self.root.get_screen('sleep').ids.sleepgraph.texture=CoreImage(buf, ext="png").texture     #display your image
-        self.root.get_screen('sleep').ids.sleepgraph.reload()
-        del buf #then delete created buf'''
 
     def submitSleepData(self):
         if (str(self.root.get_screen('sleep').ids.sleepdate.text) == ""):
@@ -561,16 +689,22 @@ class MyMainApp(MDApp):
         tempdate = tempdate + " 2024  " + temptime
 
         # Open csv corresponding to the current child
-        line_to_append = [[tempdate,str(self.root.get_screen('sleep').ids.sleepactivity.text)]]
-        filename = 'User'+str(currentchild)+'.csv'
-        file = open(filename,'a', newline='')
-        writer = csv.writer(file)
+        # line_to_append = [[tempdate,str(self.root.get_screen('sleep').ids.sleepactivity.text)]]
+        # filename = 'User'+str(currentchild)+'.csv'
+        # file = open(filename,'a', newline='')
+        # writer = csv.writer(file)
 
-        # Write new data line to csv
-        writer.writerows(line_to_append)
+        # # Write new data line to csv
+        # writer.writerows(line_to_append)
 
-        # Close csv
-        file.close()
+        # # Close csv
+        # file.close()
+        tempactivity = str(self.root.get_screen('sleep').ids.sleepactivity.text)
+        print(int(childrenID[currentchild]))
+        print(tempdate)
+        print(tempactivity)
+        self.c.execute("INSERT INTO `baby_tracker`.`tbl_event_data` (`fld_c_id_fk`, `fld_event_time`, `fld_event_type`) VALUES (%s, %s, %s)", (int(childrenID[currentchild]),tempdate,tempactivity,))
+        self.mydb.commit()
         
         # Clear data entry spots
         self.root.get_screen('sleep').ids.sleepdate.text = ""
@@ -581,15 +715,12 @@ class MyMainApp(MDApp):
 
     def changeChild(self):
         global currentchild
+        global childrenID
         # Check current child and update to next child
-        if (currentchild == 1):
-            currentchild = 2
-        elif (currentchild== 2):
-            currentchild = 3
-        elif (currentchild == 3):
-            currentchild = 4
-        elif (currentchild == 4):
-            currentchild = 1
+        if len(childrenID) > (currentchild + 1):
+            currentchild += 1
+        else:
+            currentchild = 0
         
         # Call to update tables and graph
         self.updateGlobals()
@@ -602,30 +733,43 @@ class MyMainApp(MDApp):
         global activities 
         activities = []
         global df
-
+        global childrenID
+        global childrenNames
         global currentchild
 
         # Check currentchild and update button text
-        if (currentchild == 2):
-            self.root.get_screen('main').ids.childtext.text = "Child 2"
-            self.root.get_screen('sleep').ids.childtext.text = "Child 2"
-            self.root.get_screen('settings').ids.childtext.text = "Child 2"
-        elif (currentchild == 3):
-            self.root.get_screen('main').ids.childtext.text = "Child 3"
-            self.root.get_screen('sleep').ids.childtext.text = "Child 3"
-            self.root.get_screen('settings').ids.childtext.text = "Child 3"
-        elif (currentchild == 4):
-            self.root.get_screen('main').ids.childtext.text = "Child 4"
-            self.root.get_screen('sleep').ids.childtext.text = "Child 4"
-            self.root.get_screen('settings').ids.childtext.text = "Child 4"
-        elif (currentchild == 1):
-            self.root.get_screen('main').ids.childtext.text = "Child 1"
-            self.root.get_screen('sleep').ids.childtext.text = "Child 1"
-            self.root.get_screen('settings').ids.childtext.text = "Child 1"
+        # if (currentchild == 2):
+        #     self.root.get_screen('main').ids.childtext.text = "Child 2"
+        #     self.root.get_screen('sleep').ids.childtext.text = "Child 2"
+        #     self.root.get_screen('settings').ids.childtext.text = "Child 2"
+        # elif (currentchild == 3):
+        #     self.root.get_screen('main').ids.childtext.text = "Child 3"
+        #     self.root.get_screen('sleep').ids.childtext.text = "Child 3"
+        #     self.root.get_screen('settings').ids.childtext.text = "Child 3"
+        # elif (currentchild == 4):
+        #     self.root.get_screen('main').ids.childtext.text = "Child 4"
+        #     self.root.get_screen('sleep').ids.childtext.text = "Child 4"
+        #     self.root.get_screen('settings').ids.childtext.text = "Child 4"
+        # elif (currentchild == 1):
+        #     self.root.get_screen('main').ids.childtext.text = "Child 1"
+        #     self.root.get_screen('sleep').ids.childtext.text = "Child 1"
+        #     self.root.get_screen('settings').ids.childtext.text = "Child 1"
+        self.root.get_screen('main').ids.childtext.text = childrenNames[currentchild]
+        self.root.get_screen('sleep').ids.childtext.text = childrenNames[currentchild]
+        self.root.get_screen('settings').ids.childtext.text = childrenNames[currentchild]
 
         # Based off of currentchild load csv corresponding to the child
-        filename = 'User'+str(currentchild)+'.csv' 
-        df = pd.read_csv(filename)
+        # filename = 'User'+str(currentchild)+'.csv' 
+        # df = pd.read_csv(filename)
+        self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s", (childrenID[currentchild],))
+        result = self.c.fetchall()
+
+        print(result)
+
+        df = pd.DataFrame(result, columns=[i[0] for i in self.c.description])
+        print(df)
+        df = df.rename(columns={'fld_event_time': 'Date', 'fld_event_type': 'Activity'})
+        print(df)
 
         df.sort_values(by=['Date'])
         # Load last 7 or all of data, whichever is less
@@ -637,6 +781,8 @@ class MyMainApp(MDApp):
         for i in range(7):
             if (i < len(last_n_rows)):
                 temp = last_n_rows.iloc[[i]].values[0]
+                temp[0] = str(temp[0])
+                print(temp[0])
                 date = datetime.strptime(temp[0], "%m %d %Y  %H:%M")
                 dates.insert(0,str(date.month)+"/"+str(date.day))
                 times.insert(0,str(date.hour)+":"+str(date.minute))
