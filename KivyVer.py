@@ -30,12 +30,24 @@ loadingstr = ("""
     name: "login"
 
     FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (2/255,28/255,57/255,255/255)
+            Rectangle:
+                size: self.size
+                pos: self.pos
 
         Label:
             text: "Username:"
             pos_hint: {'x': .45, 'y': .7}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         TextInput:
             id: userw
@@ -47,8 +59,14 @@ loadingstr = ("""
         Label:
             text: "Password:"
             pos_hint: {'x': .45, 'y': .5}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         TextInput:
             id: passw
@@ -61,14 +79,20 @@ loadingstr = ("""
         Button:
             text: "Submit"
             pos_hint: {'x': .45, 'y': .3}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.loginProt()
               
         Button:
             text: "Create User"
-            pos_hint: {'x': .2, 'y': .9}
+            pos_hint: {'x': .1, 'y': .1}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.root.current = "creation"
                 root.manager.transition.direction = "left"
@@ -77,18 +101,38 @@ loadingstr = ("""
     name: "creation"
 
     FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (2/255,28/255,57/255,255/255)
+            Rectangle:
+                size: self.size
+                pos: self.pos
 
         Label:
             text: "Create User"
             pos_hint: {'x': .45, 'y': .8}
             color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "Username:"
             pos_hint: {'x': .45, 'y': .7}
             color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         TextInput:
             id: userw
@@ -100,8 +144,14 @@ loadingstr = ("""
         Label:
             text: "Password:"
             pos_hint: {'x': .45, 'y': .5}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         TextInput:
             id: passw
@@ -114,14 +164,20 @@ loadingstr = ("""
         Button:
             text: "Submit"
             pos_hint: {'x': .45, 'y': .3}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.createUser()
               
         Button:
             text: "Login"
             pos_hint: {'x': .2, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.root.current = "login"
                 root.manager.transition.direction = "left"
@@ -130,18 +186,36 @@ loadingstr = ("""
     name: "firstchild"
 
     FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (2/255,28/255,57/255,255/255)
+            Rectangle:
+                size: self.size
+                pos: self.pos
 
         Label:
             text: "Add Child"
             pos_hint: {'x': .45, 'y': .8}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "First Name:"
             pos_hint: {'x': .45, 'y': .7}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         TextInput:
             id: cfname
@@ -153,8 +227,14 @@ loadingstr = ("""
         Label:
             text: "Last Name:"
             pos_hint: {'x': .45, 'y': .5}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         TextInput:
             id: clname
@@ -166,7 +246,10 @@ loadingstr = ("""
         Button:
             text: "Submit"
             pos_hint: {'x': .45, 'y': .3}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.createFirstChild()
 
@@ -174,25 +257,43 @@ loadingstr = ("""
     name: "main"
 
     FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (2/255,28/255,57/255,255/255)
+            Rectangle:
+                size: self.size
+                pos: self.pos
         
         Label:
             id: childtext
             text: "Child 1"
             pos_hint: {'x': .0, 'y': .9}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Button:
             text: "Select Child"
             pos_hint: {'x': .1, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.changeChild()
         
         Button:
             text: "Sleep"
             pos_hint: {'x': .2, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.updateGlobals()
                 app.root.current = "sleep"
@@ -201,7 +302,10 @@ loadingstr = ("""
         Button:
             text: "Diaper"
             pos_hint: {'x': .3, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.updateGlobals()
                 app.root.current = "diaper"
@@ -210,7 +314,10 @@ loadingstr = ("""
         Button:
             text: "Settings"
             pos_hint: {'x': .9, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.root.current = "settings"
                 root.manager.transition.direction = "left"
@@ -219,25 +326,55 @@ loadingstr = ("""
     name: "sleep"
 
     FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (2/255,28/255,57/255,255/255)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        Label:
+            id: tableBG
+            pos_hint: {'x': .65, 'y': .2}
+            color: 2/255,28/255,57/255
+            size_hint: .3, .6
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: childtext
             text: "Child 1"
             pos_hint: {'x': .0, 'y': .9}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Button:
             text: "Select Child"
             pos_hint: {'x': .1, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.changeChild()
               
         Button:
             text: "Main"
             pos_hint: {'x': .2, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.root.current = "main"
                 root.manager.transition.direction = "left"
@@ -245,7 +382,10 @@ loadingstr = ("""
         Button:
             text: "Diaper"
             pos_hint: {'x': .3, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.updateGlobals()
                 app.root.current = "diaper"
@@ -254,7 +394,10 @@ loadingstr = ("""
         Button:
             text: "Settings"
             pos_hint: {'x': .9, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.root.current = "settings"
                 root.manager.transition.direction = "left"
@@ -272,20 +415,38 @@ loadingstr = ("""
         Label:
             text: "Date"
             pos_hint: {'x': .1, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "Time"
             pos_hint: {'x': .2, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "Activity"
             pos_hint: {'x': .3, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
                
         TextInput:
             id: sleepdate
@@ -311,7 +472,10 @@ loadingstr = ("""
         Button:
             text: "Submit"
             pos_hint: {'x': .2, 'y': .65}
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.submitSleepData()
               
@@ -319,203 +483,371 @@ loadingstr = ("""
             text: "Past Sleep Activity"
             multiline: False
             pos_hint: {'x': .75, 'y': .8}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "Date"
             multiline: False
             pos_hint: {'x': .65, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             text: "Time"
             multiline: False
             pos_hint: {'x': .75, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             text: "Activity"
             multiline: False
             pos_hint: {'x': .85, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             id: date1
             text: "Date1"
             multiline: False
             pos_hint: {'x': .65, 'y': .65}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time1
             text: "Time1"
             multiline: False
             pos_hint: {'x': .75, 'y': .65}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: activity1
             text: "Activity1"
             multiline: False
             pos_hint: {'x': .85, 'y': .65}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: date2
             text: "Date2"
             multiline: False
             pos_hint: {'x': .65, 'y': .55}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time2
             text: "Time2"
             multiline: False
             pos_hint: {'x': .75, 'y': .55}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: activity2
             text: "Activity2"
             multiline: False
             pos_hint: {'x': .85, 'y': .55}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: date3
             text: "Date3"
             multiline: False
             pos_hint: {'x': .65, 'y': .45}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time3
             text: "Time3"
             multiline: False
             pos_hint: {'x': .75, 'y': .45}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: activity3
             text: "Activity3"
             multiline: False
             pos_hint: {'x': .85, 'y': .45}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: date4
             text: "Date4"
             multiline: False
             pos_hint: {'x': .65, 'y': .35}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time4
             text: "Time4"
             multiline: False
             pos_hint: {'x': .75, 'y': .35}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: activity4
             text: "Activity4"
             multiline: False
             pos_hint: {'x': .85, 'y': .35}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: date5
             text: "Date5"
             multiline: False
             pos_hint: {'x': .65, 'y': .25}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time5
             text: "Time5"
             multiline: False
             pos_hint: {'x': .75, 'y': .25}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: activity5
             text: "Activity5"
             multiline: False
             pos_hint: {'x': .85, 'y': .25}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             text: "Time Slept Today"
             multiline: False
-            pos_hint: {'x': .625, 'y': .15}
-            color: 255,255,255
+            pos_hint: {'x': .65, 'y': .15}
+            color: 2/255,28/255,57/255
             size_hint: .15, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "Time Slept this Week"
             multiline: False
             pos_hint: {'x': .8, 'y': .15}
-            color: 255,255,255
-            size_hint: .15, .05  
+            color: 2/255,28/255,57/255
+            size_hint: .15, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos 
               
         Label:
             id: sleptday
             text: "Time"
             multiline: False
-            pos_hint: {'x': .625, 'y': .1}
-            color: 255,255,255
+            pos_hint: {'x': .65, 'y': .1}
+            color: 2/255,28/255,57/255
             size_hint: .15, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: sleptweek
             text: "Time"
             multiline: False
             pos_hint: {'x': .8, 'y': .1}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .15, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
 <DiaperWindow>:
     name: "diaper"
 
     FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (2/255,28/255,57/255,255/255)
+            Rectangle:
+                size: self.size
+                pos: self.pos
         
+        Label:
+            id: tableBG
+            pos_hint: {'x': .65, 'y': .2}
+            color: 2/255,28/255,57/255
+            size_hint: .2, .6
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
         Label:
             id: childtext
             text: "Child 1"
             pos_hint: {'x': .0, 'y': .9}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Button:
             text: "Select Child"
             pos_hint: {'x': .1, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.changeChild()
               
         Button:
             text: "Main"
             pos_hint: {'x': .2, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.root.current = "main"
                 root.manager.transition.direction = "left"
@@ -523,7 +855,10 @@ loadingstr = ("""
         Button:
             text: "Sleep"
             pos_hint: {'x': .3, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.updateGlobals()
                 app.root.current = "sleep"
@@ -532,7 +867,10 @@ loadingstr = ("""
         Button:
             text: "Settings"
             pos_hint: {'x': .9, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.root.current = "settings"
                 root.manager.transition.direction = "left"
@@ -540,14 +878,26 @@ loadingstr = ("""
         Label:
             text: "Date"
             pos_hint: {'x': .1, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "Time"
             pos_hint: {'x': .2, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
                
         TextInput:
@@ -567,135 +917,234 @@ loadingstr = ("""
         Button:
             text: "Submit"
             pos_hint: {'x': .2, 'y': .65}
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.submitDiaperData()
               
         Label:
             text: "Past Diaper Changes"
             multiline: False
-            pos_hint: {'x': .75, 'y': .8}
-            color: 255,255,255
+            pos_hint: {'x': .7, 'y': .8}
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "Date"
             multiline: False
             pos_hint: {'x': .65, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             text: "Time"
             multiline: False
             pos_hint: {'x': .75, 'y': .75}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             id: date1
             text: "Date1"
             multiline: False
             pos_hint: {'x': .65, 'y': .65}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time1
             text: "Time1"
             multiline: False
             pos_hint: {'x': .75, 'y': .65}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: date2
             text: "Date2"
             multiline: False
             pos_hint: {'x': .65, 'y': .55}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time2
             text: "Time2"
             multiline: False
             pos_hint: {'x': .75, 'y': .55}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: date3
             text: "Date3"
             multiline: False
             pos_hint: {'x': .65, 'y': .45}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time3
             text: "Time3"
             multiline: False
             pos_hint: {'x': .75, 'y': .45}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: date4
             text: "Date4"
             multiline: False
             pos_hint: {'x': .65, 'y': .35}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time4
             text: "Time4"
             multiline: False
             pos_hint: {'x': .75, 'y': .35}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
               
         Label:
             id: date5
             text: "Date5"
             multiline: False
             pos_hint: {'x': .65, 'y': .25}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         
         Label:
             id: time5
             text: "Time5"
             multiline: False
             pos_hint: {'x': .75, 'y': .25}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .05
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
 
 <SettingsWindow>:
     name: "settings"
 
     FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (2/255,28/255,57/255,255/255)
+            Rectangle:
+                size: self.size
+                pos: self.pos
         
         Label:
             id: childtext
             text: "Child 1"
             pos_hint: {'x': .0, 'y': .9}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Button:
             text: "Select Child"
             pos_hint: {'x': .1, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.changeChild()
             
         Button:
             text: "Sleep"
             pos_hint: {'x': .2, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.updateGlobals()
                 app.root.current = "sleep"
@@ -704,19 +1153,36 @@ loadingstr = ("""
         Button:
             text: "Settings"
             pos_hint: {'x': .9, 'y': .9}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
 
         Label:
             text: "Add Child"
-            pos_hint: {'x': .05, 'y': .65}
-            color: 255,255,255
+            pos_hint: {'x': .05, 'y': .7}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Label:
             text: "First Name:"
             pos_hint: {'x': .05, 'y': .6}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         TextInput:
             id: cfname
@@ -728,8 +1194,14 @@ loadingstr = ("""
         Label:
             text: "Last Name:"
             pos_hint: {'x': .05, 'y': .45}
-            color: 255,255,255
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            canvas.before:
+                Color:
+                    rgba: (65/255,180/255,247/255,255/255)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         TextInput:
             id: clname
@@ -741,14 +1213,20 @@ loadingstr = ("""
         Button:
             text: "Add Child"
             pos_hint: {'x': .05, 'y': .3}
+            color: 2/255,28/255,57/255
             size_hint: .1, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.createNewChild()
 
         Button:
             text: "Log Out"
             pos_hint: {'x': .7, 'y': .1}
+            color: 2/255,28/255,57/255
             size_hint: .2, .1
+            background_normal: ''
+            background_color: (65/255,180/255,247/255,255/255)
             on_release:
                 app.logoutProt()   
 """)
@@ -849,7 +1327,7 @@ class MyMainApp(MDApp):
                                     
                 self.c.execute("select * from tbl_child where fld_c_p_username_fk = %s", (username,))
                 result = self.c.fetchall()
-                # print(result)
+                print(result)
                 for i in range(len(result)):
                     childrenID.insert(i,result[i][0])
 
@@ -858,18 +1336,19 @@ class MyMainApp(MDApp):
 
                 if(childrenID != []):
 
-                    # print(childrenID)
-                    # print(childrenNames)
+                    print(childrenID)
+                    print(childrenNames)
+                    print(childrenID[currentchild])
                     
-                    self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s and fld_event_type = 'Sleep' or fld_event_type = 'Awake'", (childrenID[currentchild],))
+                    self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s and (fld_event_type = 'Sleep' or fld_event_type = 'Awake')", (childrenID[currentchild],))
                     result = self.c.fetchall()
 
-                    # print(result)
+                    print(result)
 
                     df = pd.DataFrame(result, columns=[i[0] for i in self.c.description])
-                    print(df)
+                    #print(df)
                     df = df.rename(columns={'fld_event_time': 'Date', 'fld_event_type': 'Activity'})
-                    print(df)
+                    #print(df)
                     self.root.get_screen('main').ids.childtext.text = childrenNames[currentchild]
                     self.root.get_screen('sleep').ids.childtext.text = childrenNames[currentchild]
                     self.root.get_screen('diaper').ids.childtext.text = childrenNames[currentchild]
@@ -926,15 +1405,15 @@ class MyMainApp(MDApp):
             # print(childrenID)
             # print(childrenNames)
             
-            self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s and fld_event_type = 'Sleep' or fld_event_type = 'Awake'", (childrenID[currentchild],))
+            self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s and (fld_event_type = 'Sleep' or fld_event_type = 'Awake')", (childrenID[currentchild],))
             result = self.c.fetchall()
 
             # print(result)
 
             df = pd.DataFrame(result, columns=[i[0] for i in self.c.description])
-            print(df)
+            #print(df)
             df = df.rename(columns={'fld_event_time': 'Date', 'fld_event_type': 'Activity'})
-            print(df)
+            #print(df)
             self.root.get_screen('main').ids.childtext.text = childrenNames[currentchild]
             self.root.get_screen('sleep').ids.childtext.text = childrenNames[currentchild]
             self.root.get_screen('diaper').ids.childtext.text = childrenNames[currentchild]
@@ -968,15 +1447,15 @@ class MyMainApp(MDApp):
             # print(childrenID)
             # print(childrenNames)
             
-            self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s and fld_event_type = 'Sleep' or fld_event_type = 'Awake'", (childrenID[currentchild],))
+            self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s and (fld_event_type = 'Sleep' or fld_event_type = 'Awake')", (childrenID[currentchild],))
             result = self.c.fetchall()
 
             # print(result)
 
             df = pd.DataFrame(result, columns=[i[0] for i in self.c.description])
-            print(df)
+            #print(df)
             df = df.rename(columns={'fld_event_time': 'Date', 'fld_event_type': 'Activity'})
-            print(df)
+            #print(df)
             self.root.get_screen('main').ids.childtext.text = childrenNames[currentchild]
             self.root.get_screen('sleep').ids.childtext.text = childrenNames[currentchild]
             self.root.get_screen('diaper').ids.childtext.text = childrenNames[currentchild]
@@ -1005,6 +1484,31 @@ class MyMainApp(MDApp):
         diapertimes = []
         global diaperactivities
         diaperactivities = []
+        self.root.get_screen('sleep').ids.date1.text = ''
+        self.root.get_screen('sleep').ids.time1.text = ''
+        self.root.get_screen('sleep').ids.activity1.text = ''
+        self.root.get_screen('sleep').ids.date2.text = ''
+        self.root.get_screen('sleep').ids.time2.text = ''
+        self.root.get_screen('sleep').ids.activity2.text = ''
+        self.root.get_screen('sleep').ids.date3.text = ''
+        self.root.get_screen('sleep').ids.time3.text = ''
+        self.root.get_screen('sleep').ids.activity3.text = ''
+        self.root.get_screen('sleep').ids.date4.text = ''
+        self.root.get_screen('sleep').ids.time4.text = ''
+        self.root.get_screen('sleep').ids.activity4.text = ''
+        self.root.get_screen('sleep').ids.date5.text = ''
+        self.root.get_screen('sleep').ids.time5.text = ''
+        self.root.get_screen('sleep').ids.activity5.text = ''
+        self.root.get_screen('diaper').ids.date1.text = ''
+        self.root.get_screen('diaper').ids.time1.text = ''
+        self.root.get_screen('diaper').ids.date2.text = ''
+        self.root.get_screen('diaper').ids.time2.text = ''
+        self.root.get_screen('diaper').ids.date3.text = ''
+        self.root.get_screen('diaper').ids.time3.text = ''
+        self.root.get_screen('diaper').ids.date4.text = ''
+        self.root.get_screen('diaper').ids.time4.text = ''
+        self.root.get_screen('diaper').ids.date5.text = ''
+        self.root.get_screen('diaper').ids.time5.text = ''
         self.root.transition.direction = "left"
         self.root.current = "login"
 
@@ -1091,9 +1595,9 @@ class MyMainApp(MDApp):
         # # Close csv
         # file.close()
         tempactivity = str(self.root.get_screen('sleep').ids.sleepactivity.text)
-        print(int(childrenID[currentchild]))
-        print(tempdate)
-        print(tempactivity)
+        #print(int(childrenID[currentchild]))
+        #print(tempdate)
+        #print(tempactivity)
         self.c.execute("INSERT INTO `baby_tracker`.`tbl_event_data` (`fld_c_id_fk`, `fld_event_time`, `fld_event_type`) VALUES (%s, %s, %s)", (int(childrenID[currentchild]),tempdate,tempactivity,))
         self.mydb.commit()
         
@@ -1182,8 +1686,8 @@ class MyMainApp(MDApp):
 
         # # Close csv
         # file.close()
-        print(int(childrenID[currentchild]))
-        print(tempdate)
+        #print(int(childrenID[currentchild]))
+        #print(tempdate)
         self.c.execute("INSERT INTO `baby_tracker`.`tbl_event_data` (`fld_c_id_fk`, `fld_event_time`, `fld_event_type`) VALUES (%s, %s, %s)", (int(childrenID[currentchild]),tempdate,'Diaper',))
         self.mydb.commit()
         
@@ -1213,6 +1717,7 @@ class MyMainApp(MDApp):
         global activities 
         activities = []
         global df
+        global diaperdf
         global childrenID
         global childrenNames
         global currentchild
@@ -1249,12 +1754,12 @@ class MyMainApp(MDApp):
             # Based off of currentchild load csv corresponding to the child
             # filename = 'User'+str(currentchild)+'.csv' 
             # df = pd.read_csv(filename)
-            self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s", (childrenID[currentchild],))
-            result = self.c.fetchall()
+            self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s AND (fld_event_type = 'Sleep' or fld_event_type = 'Awake')", (childrenID[currentchild],))
+            sresult = self.c.fetchall()
 
-            # print(result)
+            # print(sresult)
 
-            df = pd.DataFrame(result, columns=[i[0] for i in self.c.description])
+            df = pd.DataFrame(sresult, columns=[i[0] for i in self.c.description])
             # print(df)
             df = df.rename(columns={'fld_event_time': 'Date', 'fld_event_type': 'Activity'})
             # print(df)
@@ -1270,7 +1775,7 @@ class MyMainApp(MDApp):
                 if (i < len(last_n_rows)):
                     temp = last_n_rows.iloc[[i]].values[0]
                     temp[0] = str(temp[0])
-                    print(temp[0])
+                    #print(temp[0])
                     date = datetime.strptime(temp[0], "%m %d %Y  %H:%M")
                     dates.insert(0,str(date.month)+"/"+str(date.day))
                     times.insert(0,str(date.hour)+":"+str(date.minute))
@@ -1352,18 +1857,18 @@ class MyMainApp(MDApp):
                 self.root.get_screen('sleep').ids.sleptweek.text = "N/A"
 
             self.c.execute("select fld_event_time, fld_event_type from tbl_event_data where fld_c_id_fk = %s and fld_event_type = 'Diaper'", (childrenID[currentchild],))
-            result = self.c.fetchall()
+            dresult = self.c.fetchall()
 
-            print(result)
+            #print(dresult)
 
-            diaperdf = pd.DataFrame(result, columns=[i[0] for i in self.c.description])
+            diaperdf = pd.DataFrame(dresult, columns=[i[0] for i in self.c.description])
             # print(diaperdf)
             diaperdf = diaperdf.rename(columns={'fld_event_time': 'Date', 'fld_event_type': 'Activity'})
             
-            print(diaperdf)
+            #print(diaperdf)
 
             diaperdf.sort_values(by=['Date'])
-            print(diaperdf)
+            #print(diaperdf)
             # Load last 7 or all of data, whichever is less
             if(len(diaperdf) >= 7):
                 last_n_rows = diaperdf.tail(7)
@@ -1385,16 +1890,16 @@ class MyMainApp(MDApp):
                     diapertimes.append("")
                     diaperactivities.append("")
 
-            self.root.get_screen('diaper').ids.date1.text = dates[0]
-            self.root.get_screen('diaper').ids.time1.text = times[0]
-            self.root.get_screen('diaper').ids.date2.text = dates[1]
-            self.root.get_screen('diaper').ids.time2.text = times[1]
-            self.root.get_screen('diaper').ids.date3.text = dates[2]
-            self.root.get_screen('diaper').ids.time3.text = times[2]
-            self.root.get_screen('diaper').ids.date4.text = dates[3]
-            self.root.get_screen('diaper').ids.time4.text = times[3]
-            self.root.get_screen('diaper').ids.date5.text = dates[4]
-            self.root.get_screen('diaper').ids.time5.text = times[4]
+            self.root.get_screen('diaper').ids.date1.text = diaperdates[0]
+            self.root.get_screen('diaper').ids.time1.text = diapertimes[0]
+            self.root.get_screen('diaper').ids.date2.text = diaperdates[1]
+            self.root.get_screen('diaper').ids.time2.text = diapertimes[1]
+            self.root.get_screen('diaper').ids.date3.text = diaperdates[2]
+            self.root.get_screen('diaper').ids.time3.text = diapertimes[2]
+            self.root.get_screen('diaper').ids.date4.text = diaperdates[3]
+            self.root.get_screen('diaper').ids.time4.text = diapertimes[3]
+            self.root.get_screen('diaper').ids.date5.text = diaperdates[4]
+            self.root.get_screen('diaper').ids.time5.text = diapertimes[4]
 
 if __name__ == "__main__":
     MyMainApp().run()
